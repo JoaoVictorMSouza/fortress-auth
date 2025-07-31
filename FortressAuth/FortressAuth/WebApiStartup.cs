@@ -1,4 +1,8 @@
-﻿using FortressAuth.Domain.Interfaces;
+﻿using FluentValidation;
+using FortressAuth.Application.Interfaces.Services;
+using FortressAuth.Application.Services;
+using FortressAuth.Application.Validators.User;
+using FortressAuth.Domain.Interfaces;
 using FortressAuth.Infraestructure.Data;
 using FortressAuth.Infraestructure.Security;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +17,6 @@ namespace FortressAuth
 
             serviceCollection.AddEndpointsApiExplorer();
             serviceCollection.AddSwaggerGen();
-
-
 
             return serviceCollection;
         }
@@ -31,6 +33,21 @@ namespace FortressAuth
 
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
             serviceCollection.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
+
+            return serviceCollection;
+        }
+
+
+        public static IServiceCollection ApplicationRegister(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IUserService, UserService>();
+
+            serviceCollection.AddAutoMapper(configAction =>
+            {
+                configAction.AddMaps(AppDomain.CurrentDomain.Load("FortressAuth.Application"));
+            });
+
+            serviceCollection.AddValidatorsFromAssemblyContaining<CreateUserDTOValidator>();
 
             return serviceCollection;
         }

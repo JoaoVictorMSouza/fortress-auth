@@ -7,6 +7,7 @@ IServiceCollection services = builder.Services;
 
 builder.Services.WebApiRegister();
 builder.Services.InfraestructureRegister();
+builder.Services.ApplicationRegister();
 
 var app = builder.Build();
 
