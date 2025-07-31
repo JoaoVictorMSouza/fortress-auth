@@ -35,6 +35,11 @@ namespace FortressAuth.Domain.Entity
             Role = role;
         }
 
+        public User()
+        {
+            
+        }
+
         public void ChangeName(string newName)
         {
             if (string.IsNullOrWhiteSpace(newName))
@@ -58,6 +63,11 @@ namespace FortressAuth.Domain.Entity
         public void SetDescription(string description)
         {
             Description = description;
+        }
+
+        public void SetRoleUser()
+        {
+            Role = "USER";
         }
     }
 }
