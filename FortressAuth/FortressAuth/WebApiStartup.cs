@@ -1,4 +1,6 @@
-﻿using FortressAuth.Infraestructure.Data;
+﻿using FortressAuth.Domain.Interfaces;
+using FortressAuth.Infraestructure.Data;
+using FortressAuth.Infraestructure.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace FortressAuth
@@ -12,6 +14,13 @@ namespace FortressAuth
             serviceCollection.AddEndpointsApiExplorer();
             serviceCollection.AddSwaggerGen();
 
+
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection InfraestructureRegister(this IServiceCollection serviceCollection)
+        {
             serviceCollection.AddDbContext<SqlServerDbContext>((serviceProvider, dbContextOptionsBuilder) =>
             {
                 IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -19,6 +28,9 @@ namespace FortressAuth
 
                 dbContextOptionsBuilder.UseSqlServer(stringConnection);
             });
+
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
+            serviceCollection.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 
             return serviceCollection;
         }

@@ -6,6 +6,7 @@ IServiceCollection services = builder.Services;
 // Add services to the container.
 
 builder.Services.WebApiRegister();
+builder.Services.InfraestructureRegister();
 
 var app = builder.Build();
 
