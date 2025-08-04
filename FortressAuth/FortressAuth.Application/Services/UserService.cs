@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FortressAuth.Application.DTOs.Responses.Erro;
 using FortressAuth.Application.DTOs.User;
 using FortressAuth.Application.Interfaces.Services;
 using FortressAuth.Domain.Entity;
@@ -24,7 +25,7 @@ namespace FortressAuth.Application.Services
 
             if (user != null)
             {
-                throw new Exception("User with this email already exists.");
+                throw new CustomException("User with this email already exists.");
             }
 
             User newUser = _mapper.Map<User>(createUserDTO);

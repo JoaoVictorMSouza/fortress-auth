@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FortressAuth.Application.DTOs.Responses.Erro;
 using FortressAuth.Application.DTOs.User;
 using FortressAuth.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -21,19 +22,12 @@ namespace FortressAuth.Controllers
 
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                throw new CustomException("Validation error", validationResult.Errors.Select(x => x.ErrorMessage));
             }
 
-            try
-            {
-                await _userService.CreateUserAsync(createUserDTO);
+            await _userService.CreateUserAsync(createUserDTO);
 
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return BadRequest("An error occurred while creating the user. Please try again later.");
-            }
+            return Ok();
         }
     }
 }

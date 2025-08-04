@@ -22,7 +22,8 @@ namespace FortressAuth.Application.Validators.User
                 .WithMessage("Password is required.")
                 .MinimumLength(6)
                 .WithMessage("Password must be at least 6 characters long.")
-                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"); // At least one uppercase letter, one lowercase letter, and one digit
+                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+=<>?]{6,}$")
+                .WithMessage("At least one uppercase letter, one lowercase letter, and one digit");
         }
     }
 }
