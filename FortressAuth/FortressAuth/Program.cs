@@ -1,4 +1,5 @@
 using FortressAuth;
+using FortressAuth.Middlewares.Erro;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseExceptionHandlingMiddleware();
 
 app.MapControllers();
 
