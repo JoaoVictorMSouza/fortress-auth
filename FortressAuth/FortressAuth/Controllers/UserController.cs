@@ -29,5 +29,13 @@ namespace FortressAuth.Controllers
 
             return Ok();
         }
+
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAllUsers([FromQuery] GetUserDTO getUserDTO)
+        {
+            var users = await _userService.GetAllUsersAsync(getUserDTO);
+
+            return Ok(users);
+        }
     }
 }
