@@ -4,6 +4,7 @@ using FortressAuth.Application.DTOs.User;
 using FortressAuth.Application.Interfaces.Services;
 using FortressAuth.Domain.Entity;
 using FortressAuth.Domain.Interfaces;
+using FortressAuth.Domain.ValueObjects.User;
 
 namespace FortressAuth.Application.Services
 {
@@ -37,6 +38,29 @@ namespace FortressAuth.Application.Services
             newUser.SetRoleUser();
 
             await _userRepository.AddUserAsync(newUser);
+        }
+
+        public async Task<List<UserDTO>> GetAllUsersAsync(GetUserDTO getUserDTO)
+        {
+            UserFilter userFilter = new UserFilter(
+                getUserDTO.Id, 
+                getUserDTO.Name, 
+                getUserDTO.Email, 
+                getUserDTO.InclusionDateTimeGreaterThan,
+                getUserDTO.InclusionDateTimeLessThan,
+                getUserDTO.ChangeDateTimeGreaterThan,
+                getUserDTO.ChangeDateTimeLessThan);
+
+            List<User> users = await _userRepository.GetAllUsersAsync(userFilter);
+
+            if (users == null || users.Count == 0)
+            {
+                return new List<UserDTO>();
+            }
+
+            List<UserDTO> userDTOs = _mapper.Map<List<UserDTO>>(users);
+
+            return userDTOs;
         }
     }
 }
