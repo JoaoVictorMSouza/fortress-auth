@@ -1,5 +1,4 @@
-﻿using FortressAuth.Domain.Entity;
-using FortressAuth.Domain.Interfaces;
+﻿using FortressAuth.Application.Interfaces.Security;
 
 namespace FortressAuth.Infraestructure.Security
 {
@@ -10,9 +9,9 @@ namespace FortressAuth.Infraestructure.Security
             return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt(12));
         }
 
-        public bool Verify(User user, string password)
+        public bool Verify(string password, string passwordHash)
         {
-            return BCrypt.Net.BCrypt.Verify(password, user?.PasswordHash);
+            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
     }
 }
