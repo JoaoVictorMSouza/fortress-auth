@@ -9,7 +9,7 @@ namespace FortressAuth.Infraestructure.Security
             return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt(12));
         }
 
-        public bool Verify(string password, string passwordHash)
+        public bool VerifyPassword(string password, string passwordHash)
         {
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
