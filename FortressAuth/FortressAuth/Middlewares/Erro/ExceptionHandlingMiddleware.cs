@@ -29,6 +29,11 @@ namespace FortressAuth.Middlewares.Erro
             ErroExceptionBase erroExceptionBase;
             switch (ex)
             {
+                case UnauthorizedAccessException unauthorizedAccessException:
+                    erroExceptionBase = new ErroExceptionBase(HttpStatusCode.Unauthorized, unauthorizedAccessException.Message);
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    break;
+
                 case ArgumentException argumentException:
                     erroExceptionBase = new ErroExceptionBase(HttpStatusCode.BadRequest, "Please, check your request and try again later.", argumentException.Message);
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
