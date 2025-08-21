@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FortressAuth.Application.Interfaces.Security;
 using FortressAuth.Application.Interfaces.Services;
 using FortressAuth.Application.Services;
 using FortressAuth.Application.Validators.User;
@@ -31,7 +32,10 @@ namespace FortressAuth
                 dbContextOptionsBuilder.UseSqlServer(stringConnection);
             });
 
+            serviceCollection.AddScoped<IJwtService, JwtService>();
+
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
+
             serviceCollection.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 
             return serviceCollection;
