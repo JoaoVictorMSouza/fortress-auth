@@ -41,6 +41,7 @@ namespace FortressAuth
         public static IServiceCollection ApplicationRegister(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IUserService, UserService>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
 
             serviceCollection.AddAutoMapper(configAction =>
             {
