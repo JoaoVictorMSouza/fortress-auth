@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FortressAuth.Application.DTOs.Responses.Erro;
 using FortressAuth.Application.DTOs.User;
+using FortressAuth.Application.Interfaces.Security;
 using FortressAuth.Application.Interfaces.Services;
 using FortressAuth.Domain.Entity;
 using FortressAuth.Domain.Interfaces;
@@ -10,9 +11,9 @@ namespace FortressAuth.Application.Services
 {
     public class UserService : IUserService
     {
-        public IMapper _mapper { get; set; }
-        public IUserRepository _userRepository { get; set; }
-        public IPasswordHasher _passwordHasher { get; set; }
+        private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher _passwordHasher;
         public UserService(IMapper mapper, IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
             _mapper = mapper;
