@@ -2,6 +2,7 @@
 using FortressAuth.Application.DTOs.Responses.Erro;
 using FortressAuth.Application.DTOs.User;
 using FortressAuth.Application.Interfaces.Services;
+using FortressAuth.Filters.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FortressAuth.Controllers
@@ -15,7 +16,7 @@ namespace FortressAuth.Controllers
             _userService = userService;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create"), AuthorizeUserAttribute]
         public async Task<IActionResult> CreateUser([FromServices] IValidator<CreateUserDTO> validator, [FromBody] CreateUserDTO createUserDTO)
         {
             var validationResult = await validator.ValidateAsync(createUserDTO);
@@ -30,7 +31,7 @@ namespace FortressAuth.Controllers
             return Ok();
         }
 
-        [HttpGet("get-all")]
+        [HttpGet("get-all"), AuthorizeUserAttribute]
         public async Task<IActionResult> GetAllUsers([FromQuery] GetUserDTO getUserDTO)
         {
             var users = await _userService.GetAllUsersAsync(getUserDTO);
