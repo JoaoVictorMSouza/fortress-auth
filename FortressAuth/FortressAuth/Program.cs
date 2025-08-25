@@ -41,13 +41,6 @@ services
         };
     });
 
-
-services.AddAuthorization(configureOptions =>
-{
-    configureOptions.AddPolicy("USER", policy => policy.RequireRole("USER", "ADMIN"));
-    configureOptions.AddPolicy("ADMIN", policy => policy.RequireRole("ADMIN"));
-});
-
 builder.Services.WebApiRegister();
 builder.Services.InfraestructureRegister();
 builder.Services.ApplicationRegister();

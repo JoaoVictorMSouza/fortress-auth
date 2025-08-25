@@ -14,6 +14,12 @@ namespace FortressAuth
     {
         public static IServiceCollection WebApiRegister(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddAuthorization(configureOptions =>
+            {
+                configureOptions.AddPolicy("USER", policy => policy.RequireRole("USER", "ADMIN"));
+                configureOptions.AddPolicy("ADMIN", policy => policy.RequireRole("ADMIN"));
+            });
+
             serviceCollection.AddControllers();
 
             serviceCollection.AddEndpointsApiExplorer();
