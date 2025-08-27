@@ -7,7 +7,7 @@ namespace FortressAuth.Infraestructure.Data.Configurations
 {
     internal class UserConfiguration : EntityTypeConfigurationGuid<User>
     {
-        public UserConfiguration(string tableName) : base("TB_USER")
+        public UserConfiguration() : base("TB_USER")
         {
 
         }
@@ -32,6 +32,11 @@ namespace FortressAuth.Infraestructure.Data.Configurations
                 .IsRequired();
 
             builder.Property(x => x.Description);
+
+            builder.HasMany(x => x.RefreshTokens)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
