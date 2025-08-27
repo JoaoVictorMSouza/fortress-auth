@@ -1,4 +1,5 @@
 ﻿using FortressAuth.Domain.Entity;
+using System.Security.Claims;
 
 namespace FortressAuth.Application.Interfaces.Services
 {
@@ -8,5 +9,6 @@ namespace FortressAuth.Application.Interfaces.Services
         string GenerateRefreshToken();
         public DateTime GetExpirationAcessToken();
         public DateTime GetExpirationRefreshToken();
+        ClaimsPrincipal GetPayloadClaimsPrincipalFromExpiredToken(string token);
     }
 }
