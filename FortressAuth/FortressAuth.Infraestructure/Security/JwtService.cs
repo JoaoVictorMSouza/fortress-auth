@@ -98,5 +98,29 @@ namespace FortressAuth.Infraestructure.Security
             return claimsIdentity;
         }
 
+
+
+        public ClaimsPrincipal GetPayloadClaimsPrincipalFromExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = GetSymmetricSecurityKey(),
+                ValidateLifetime = false
+            };
+
+            var handler = new JwtSecurityTokenHandler();
+
+            var principal = handler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+
+            if (securityToken is not JwtSecurityToken jwt || !jwt.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+            return principal;
+        }
     }
 }
