@@ -10,6 +10,7 @@ namespace FortressAuth.Domain.Entities
         public bool Revoked { get; private set; }
         public string? ReplacedByToken { get; private set; }
 
+        public Guid UserId { get; private set; }
         public User User { get; private set; }
 
         public bool IsActive => !Revoked && DateTime.UtcNow < ExpiresAtUtc;
