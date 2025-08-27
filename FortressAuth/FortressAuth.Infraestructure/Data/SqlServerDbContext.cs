@@ -1,4 +1,5 @@
-﻿using FortressAuth.Domain.Entities.Base;
+﻿using FortressAuth.Domain.Entities;
+using FortressAuth.Domain.Entities.Base;
 using FortressAuth.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,5 +46,7 @@ namespace FortressAuth.Infraestructure.Data
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<RefreshTokenUser> RefreshTokensUser { get; set; }
     }
 }
