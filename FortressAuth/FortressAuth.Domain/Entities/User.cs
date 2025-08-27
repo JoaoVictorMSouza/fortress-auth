@@ -1,4 +1,5 @@
-﻿using FortressAuth.Domain.Entities.Base;
+﻿using FortressAuth.Domain.Entities;
+using FortressAuth.Domain.Entities.Base;
 
 namespace FortressAuth.Domain.Entity
 {
@@ -9,6 +10,8 @@ namespace FortressAuth.Domain.Entity
         public string PasswordHash { get; private set; }
         public string Role { get; private set; }
         public string Description { get; private set; }
+
+        public List<RefreshTokenUser> RefreshTokens { get; private set; }
 
         public User(string name, string email, string passwordHash, string role) : base()
         {
