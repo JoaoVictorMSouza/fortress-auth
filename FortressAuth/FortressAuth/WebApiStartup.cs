@@ -5,6 +5,7 @@ using FortressAuth.Application.Services;
 using FortressAuth.Application.Validators.User;
 using FortressAuth.Domain.Interfaces;
 using FortressAuth.Infraestructure.Data;
+using FortressAuth.Infraestructure.Data.Repositories;
 using FortressAuth.Infraestructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
