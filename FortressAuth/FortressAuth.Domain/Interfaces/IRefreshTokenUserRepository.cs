@@ -4,7 +4,7 @@ namespace FortressAuth.Domain.Interfaces
 {
     public interface IRefreshTokenUserRepository
     {
-        Task<RefreshTokenUser?> GetRefreshTokenUserByTokenAsync(string token);
+        Task<RefreshTokenUser?> GetRefreshTokenUserByTokenAndUserIdAsync(string token, Guid userId);
         Task AddRefreshTokenUserAsync(RefreshTokenUser refreshToken);
         Task SetRevokedRefreshTokenUser(RefreshTokenUser refreshTokenUser);
         Task SetRevokedAllRefreshTokensUserByUserIdAsync(Guid userId);
