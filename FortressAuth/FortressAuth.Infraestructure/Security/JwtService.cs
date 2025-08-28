@@ -98,8 +98,6 @@ namespace FortressAuth.Infraestructure.Security
             return claimsIdentity;
         }
 
-
-
         public ClaimsPrincipal GetPayloadClaimsPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters
@@ -115,12 +113,17 @@ namespace FortressAuth.Infraestructure.Security
 
             var principal = handler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 
+            ValidateSecurityToken(securityToken);
+
+            return principal;
+        }
+
+        private void ValidateSecurityToken(SecurityToken securityToken)
+        {
             if (securityToken is not JwtSecurityToken jwt || !jwt.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             {
                 throw new SecurityTokenException("Invalid token");
             }
-
-            return principal;
         }
     }
 }
