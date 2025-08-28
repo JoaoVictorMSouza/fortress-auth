@@ -3,14 +3,14 @@ using FortressAuth.Domain.Interfaces;
 using FortressAuth.Domain.ValueObjects.User;
 using Microsoft.EntityFrameworkCore;
 
-namespace FortressAuth.Infraestructure.Data
+namespace FortressAuth.Infraestructure.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public SqlServerDbContext _sqlServerDbContext { get; set; }
+        private SqlServerDbContext _sqlServerDbContext;
         public UserRepository(SqlServerDbContext sqlServerDbContext)
         {
-            this._sqlServerDbContext = sqlServerDbContext;
+            _sqlServerDbContext = sqlServerDbContext;
         }
         public Task AddUserAsync(User user)
         {
@@ -21,7 +21,7 @@ namespace FortressAuth.Infraestructure.Data
 
         public Task<User?> GetUserByEmailAsync(string email)
         {
-            return _sqlServerDbContext.Users.FirstOrDefaultAsync<User>(user => user.Email == email);
+            return _sqlServerDbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
         }
 
         public Task<List<User>> GetAllUsersAsync(UserFilter userFilter)
