@@ -5,7 +5,19 @@ namespace FortressAuth.Domain.Entities
 {
     public class RefreshTokenUser : DefaultEntityGuid
     {
-        public string Token { get; private set; }
+        public RefreshTokenUser()
+        {
+            
+        }
+
+        public RefreshTokenUser(string token, DateTime expiresAtUtc, User user)
+        {
+            Token = token;
+            ExpiresAtUtc = expiresAtUtc;
+            User = user;
+            UserId = user.Id;
+        }
+        public string? Token { get; private set; }
         public DateTime ExpiresAtUtc { get; private set; }
         public bool Revoked { get; private set; }
         public string? ReplacedByToken { get; private set; }
@@ -18,7 +30,7 @@ namespace FortressAuth.Domain.Entities
         public void SetRevoked(string? replacedByToken = null)
         {
             Revoked = true;
-            Token = null!;
+            Token = null;
             ReplacedByToken = replacedByToken;
         }
     }
