@@ -78,6 +78,7 @@ namespace FortressAuth
             serviceCollection.AddScoped<IJwtService, JwtService>();
 
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
+            serviceCollection.AddScoped<IRefreshTokenUserRepository, RefreshTokenUserRepository>();
 
             serviceCollection.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 
